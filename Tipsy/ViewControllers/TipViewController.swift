@@ -76,7 +76,7 @@ class TipViewController: UIViewController, UITextFieldDelegate {
     @IBAction func splitStepperChanged(_ sender: UIStepper) {
         splitLabel.text = String(Int(sender.value))
         
-        tipCalculator.tip = Float(sender.value)
+        tipCalculator.people = Int(sender.value)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -118,6 +118,19 @@ class TipViewController: UIViewController, UITextFieldDelegate {
             calculateButton.isEnabled = true
             tipCalculator.bill = fValue
             textField.text = String(format: "%.2f", fValue)
+        }
+    }
+    
+    @IBAction func calculateButtonPressed(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "goToResult", sender: self)
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToResult" {
+            let destinationVC = segue.destination as! SplitBillViewController
+            
+            destinationVC.tipCalculator = self.tipCalculator
         }
     }
 }

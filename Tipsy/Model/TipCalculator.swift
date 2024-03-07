@@ -13,11 +13,19 @@ struct TipCalculator {
     var tip: Float
     var people: Int
     
-    func calculateSplit() -> Float? {
+    func getSplit() -> String? {
         let multiplier = 1.0 + tip
         
         return bill.map { b in
-            (b * multiplier) / Float(people)
+            let split = (b * multiplier) / Float(people)
+            
+            return String(format: "%.2f", split)
         }
+    }
+    
+    func splitDescription() -> String {
+        let percent = Int(tip * 100)
+        
+        return "Split between \(people) people, with \(percent)% tip."
     }
 }
